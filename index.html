@@ -1,0 +1,36 @@
+<div ng-app="twitchApp" ng-controller="StreamersController">
+	<h1 class="text-center">Twitch TV</h1>
+
+	<div class="row tcontainer">
+		<div class="small-12 medium-6 columns text-left tcontainer controls">
+			<button type="button" class="button" ng-click="new=!new" ng-class="{twitch:new}">New</button>
+			<div class="input-cont" ng-class="{shown:new}"><input type="text" ng-model="newStream">
+				<button class="button add-stream" ng-class="{shown:new}" ng-click="addStream()">Add</button></div>
+			<button type="button" class="button" ng-click="hide=!hide" ng-class="{twitch:hide}">Edit</button>
+		</div>
+		<div class="small-12 small-centered medium-6 columns text-right tcontainer">
+			Show channels:
+			<button type="button" class="button" ng-click="type = undefined" ng-class="{twitch: !type}">All</button>
+			<button type="button" class="button" ng-click="type = {online: true}" ng-class="{twitch: type.online}">Online</button>
+			<button type="button" class="button" ng-click="type = {online: false}" ng-class="{twitch: type.online === false}">Offline</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="small-12 small-centered columns tcontainer">
+			<div class="rowitem" ng-repeat="user in streams | filter:type">
+				<button ng-class="{inlinebl:hide}" class="del-user" ng-click="removeStream(user)">x</button>
+			<a ng-href="{{user.url}}" target="_blank">
+			<div class="row stream" ng-class="{twitch: user.online}">
+				<span class="user small-12 medium-4 columns">
+					<img alt="logo" ng-src="{{user.logo}}">
+					<span class="descri">{{user.name}}<span class="show-for-small-only"><br>{{user.game}}</span></span>
+				</span>
+				<span class="game hide-for-small-only medium-8 columns">
+					{{user.game}}{{user.status}}
+				</span>
+			</div>
+			</a>
+			</div>
+		</div>
+	</div>
+</div>
